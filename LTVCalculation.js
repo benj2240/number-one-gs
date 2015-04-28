@@ -1,10 +1,10 @@
 $(document).ready(function(){
-    $("#calc1stLoan").click(function(){
-        $("#1stLoan").val(calc1stLoan());
+    $("#calcFirstLoan").click(function(){
+        $("#FirstLoan").val(calcFirstLoan());
     });
     
-    $("#calc2ndLoan").click(function(){
-        $("#2ndLoan").val(calc2ndLoan());
+    $("#calcSecondLoan").click(function(){
+        $("#SecondLoan").val(calcSecondLoan());
     });
     
     $("#calcAppraisal").click(function(){
@@ -19,12 +19,12 @@ $(document).ready(function(){
         $("#CLTV").val(calcCLTV());
     });
     
-    function get1stLoan() {
-        return $("#1stLoan").val();
+    function getFirstLoan() {
+        return $("#FirstLoan").val();
     }
     
-    function get2ndLoan() {
-        return $("#2ndLoan").val();
+    function getSecondLoan() {
+        return $("#SecondLoan").val();
     }
     
     function getAppraisal() {
@@ -39,29 +39,29 @@ $(document).ready(function(){
         return $("#CLTV").val();
     }
     
-    function calc1stLoan() {
+    function calcFirstLoan() {
         return getLTV()*getAppraisal();
     }
     
-    function calc2ndLoan() {
-        return getCLTV()*getAppraisal()-get1stLoan();
+    function calcSecondLoan() {
+        return getCLTV()*getAppraisal()-getFirstLoan();
     }
     
     function calcAppraisal() {
-        if(getCLTV() != "" && get2ndLoan() != ""){
-            // try to include 2nd loan and CLTV
-            return (get1stLoan()+get2ndLoan())/getCLTV();
+        if(getCLTV() != "" && getSecondLoan() != ""){
+            // try to include second loan and CLTV
+            return (getFirstLoan()+getSecondLoan())/getCLTV();
         }else{
-            // if one of those is blank, just use 1st loan and LTV
-            return get1stLoan()/getLTV();
+            // if one of those is blank, just use first loan and LTV
+            return getFirstLoan()/getLTV();
         }
     }
     
     function calcLTV() {
-        return get1stLoan()/getAppraisal();
+        return getFirstLoan()/getAppraisal();
     }
     
     function calcCLTV() {
-        return (get1stLoan()+get2ndLoan())/getAppraisal();
+        return (getFirstLoan()+getSecondLoan())/getAppraisal();
     }
 });
