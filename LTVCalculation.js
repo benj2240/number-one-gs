@@ -1,18 +1,22 @@
+function obj(id){
+    return document.getElementById(id);
+}
+
 // fetch values from the page
 function getFirstLoan(){
-    return document.getElementById("FirstLoan").value;
+    return Number(obj("FirstLoan").value);
 }
 function getSecondLoan(){
-    return document.getElementById("SecondLoan").value;
+    return Number(obj("SecondLoan").value);
 }
 function getAppraisal(){
-    return document.getElementById("Appraisal").value;
+    return Number(obj("Appraisal").value);
 }
 function getLTV(){
-    return document.getElementById("LTV").value;
+    return Number(obj("LTV").value);
 }
 function getCLTV(){
-    return document.getElementById("CLTV").value;
+    return Number(obj("CLTV").value);
 }
 
 // derive values based on what is on the page
@@ -44,24 +48,27 @@ function calcCLTV() {
 
 // display values based on what was derived
 function setFirstLoan(){
-    document.getElementById("FirstLoan").value = calcFirstLoan();
+    obj("FirstLoan").value = calcFirstLoan();
 }
 function setSecondLoan(){
-    document.getElementById("SecondLoan").value = calcSecondLoan();
+    obj("SecondLoan").value = calcSecondLoan();
 }
 function setAppraisal(){
-    document.getElementById("Appraisal").value = calcAppraisal();
+    obj("Appraisal").value = calcAppraisal();
 }
 function setLTV(){
-    document.getElementById("LTV").value = calcLTV();
+    obj("LTV").value = calcLTV();
 }
 function setCLTV(){
-    document.getElementById("CLTV").value = calcCLTV();
+    obj("CLTV").value = calcCLTV();
 }
 
-// attach these functions to the page buttons
-document.getElementById("calcFirstLoan").onclick = setFirstLoan;
-document.getElementById("calcSecondLoan").onclick = setSecondLoan;
-document.getElementById("calcAppraisal").onclick = setAppraisal;
-document.getElementById("calcLTV").onclick = setLTV;
-document.getElementById("calcCLTV").onclick = setCLTV;
+// once the page buttons exist
+document.addEventListener('DOMContentLoaded', function(){
+    // attach these functions to the page buttons
+    obj("calcFirstLoan").onclick = setFirstLoan;
+    obj("calcSecondLoan").onclick = setSecondLoan;
+    obj("calcAppraisal").onclick = setAppraisal;
+    obj("calcLTV").onclick = setLTV;
+    obj("calcCLTV").onclick = setCLTV;
+});
