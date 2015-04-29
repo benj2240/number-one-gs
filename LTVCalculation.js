@@ -21,29 +21,29 @@ function getCLTV(){
 
 // derive values based on what is on the page
 function calcFirstLoan() {
-    return getLTV()*getAppraisal();
+    return getLTV()*getAppraisal()/100.0;
 }
 
 function calcSecondLoan() {
-    return getCLTV()*getAppraisal()-getFirstLoan();
+    return getCLTV()*getAppraisal()/100.0-getFirstLoan();
 }
 
 function calcAppraisal() {
     if(getCLTV() != "" && getSecondLoan() != ""){
         // try to include second loan and CLTV
-        return (getFirstLoan()+getSecondLoan())/getCLTV();
+        return (getFirstLoan()+getSecondLoan())*100.0/getCLTV();
     }else{
         // if one of those is blank, just use first loan and LTV
-        return getFirstLoan()/getLTV();
+        return getFirstLoan()*100.0/getLTV();
     }
 }
 
 function calcLTV() {
-    return getFirstLoan()/getAppraisal();
+    return getFirstLoan()*100.0/getAppraisal();
 }
 
 function calcCLTV() {
-    return (getFirstLoan()+getSecondLoan())/getAppraisal();
+    return (getFirstLoan()+getSecondLoan())*100.0/getAppraisal();
 }
 
 // display values based on what was derived
