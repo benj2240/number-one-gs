@@ -1,0 +1,13 @@
+footer{
+	position: absolute;
+	bottom: 2px;
+	margin-left: 5px;
+}
+
+.btn{
+	margin-top: 10px;
+}
+
+label{
+	margin-top: 5px;
+}

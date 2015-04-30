@@ -1,74 +1,71 @@
 function obj(id){
     return document.getElementById(id);
 }
-
-// fetch values from the page
-function getFirstLoan(){
-    return Number(obj("FirstLoan").value);
+function getNumericValue(id){
+    var val = obj(id).value;
+    if(val == "") {val = NaN;}
+    return Number(val);
 }
-function getSecondLoan(){
-    return Number(obj("SecondLoan").value);
-}
-function getAppraisal(){
-    return Number(obj("Appraisal").value);
-}
-function getLTV(){
-    return Number(obj("LTV").value);
-}
-function getCLTV(){
-    return Number(obj("CLTV").value);
+function setValue(id, val){
+    if(isNaN(val)) {val = "";}
+    return obj(id).value = val;
 }
 
-// derive values based on what is on the page
-function calcFirstLoan() {
-    return getLTV()*getAppraisal()/100.0;
-}
+function calculateAmounts(){
+    var FirstLoan = getNumericValue("FirstLoan");
+    var SecondLoan = getNumericValue("SecondLoan");
+    var Appraisal = getNumericValue("Appraisal");
+    var LTV = getNumericValue("LTV")/100.0;
+    var CLTV = getNumericValue("CLTV")/100.0;
 
-function calcSecondLoan() {
-    return getCLTV()*getAppraisal()/100.0-getFirstLoan();
-}
-
-function calcAppraisal() {
-    if(getCLTV() != "" && getSecondLoan() != ""){
-        // try to include second loan and CLTV
-        return (getFirstLoan()+getSecondLoan())*100.0/getCLTV();
-    }else{
-        // if one of those is blank, just use first loan and LTV
-        return getFirstLoan()*100.0/getLTV();
+    if(!isNaN(FirstLoan) && !isNaN(Appraisal)){
+        LTV = FirstLoan / Appraisal;
     }
+
+    if(!isNaN(FirstLoan) && !isNaN(LTV)){
+        Appraisal = FirstLoan / LTV;
+    }
+
+    if(!isNaN(FirstLoan) && !isNaN(Appraisal)){
+        FirstLoan = Appraisal * LTV;
+    }
+
+    if(!isNaN(FirstLoan) && !isNaN(SecondLoan) && !isNaN(Appraisal)){
+        CLTV = (FirstLoan + SecondLoan) / Appraisal;
+    }
+
+    if(!isNaN(CLTV) && !isNaN(FirstLoan) && !isNaN(Appraisal)){
+        SecondLoan = Appraisal * CLTV - FirstLoan;
+    }
+
+    if(!isNaN(FirstLoan) && !isNaN(SecondLoan) && !isNaN(CLTV)){
+        Appraisal = (FirstLoan + SecondLoan) / CLTV;
+    }
+
+    if(!isNaN(Appraisal) && !isNaN(SecondLoan) && !isNaN(CLTV)){
+        FirstLoan = Appraisal * CLTV - SecondLoan;
+    }
+
+    LTV *= 100;
+    CLTV *= 100;
+
+    setValue("FirstLoan",FirstLoan);
+    setValue("SecondLoan",SecondLoan);
+    setValue("Appraisal",Appraisal);
+    setValue("LTV",LTV);
+    setValue("CLTV",CLTV);
 }
 
-function calcLTV() {
-    return getFirstLoan()*100.0/getAppraisal();
-}
-
-function calcCLTV() {
-    return (getFirstLoan()+getSecondLoan())*100.0/getAppraisal();
-}
-
-// display values based on what was derived
-function setFirstLoan(){
-    obj("FirstLoan").value = calcFirstLoan();
-}
-function setSecondLoan(){
-    obj("SecondLoan").value = calcSecondLoan();
-}
-function setAppraisal(){
-    obj("Appraisal").value = calcAppraisal();
-}
-function setLTV(){
-    obj("LTV").value = calcLTV();
-}
-function setCLTV(){
-    obj("CLTV").value = calcCLTV();
+function clearAmounts(){
+    setValue("FirstLoan","");
+    setValue("SecondLoan","");
+    setValue("Appraisal","");
+    setValue("LTV","");
+    setValue("CLTV","");
 }
 
 // once the page buttons exist
 document.addEventListener('DOMContentLoaded', function(){
-    // attach these functions to the page buttons
-    obj("calcFirstLoan").onclick = setFirstLoan;
-    obj("calcSecondLoan").onclick = setSecondLoan;
-    obj("calcAppraisal").onclick = setAppraisal;
-    obj("calcLTV").onclick = setLTV;
-    obj("calcCLTV").onclick = setCLTV;
+    obj("btn-calculate").onclick = calculateAmounts;
+    obj("btn-clear").onclick = clearAmounts;
 });

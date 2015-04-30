@@ -3,28 +3,47 @@
 <head>
 	<title>LTV calculator</title>
 	<script type="text/javascript" src="LTVCalculation.js"></script>
+	<link rel="stylesheet" href="LTVStyling.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 </head>
 <body>
-	<button id="calcFirstLoan">=</button>
-	<input type="text" id="FirstLoan" placeholder="1st Loan"/>
-	
-	<button id="calcSecondLoan">=</button>
-	<input type="text" id="SecondLoan" placeholder="2nd Loan"/>
-	
-	<br/>
-	
-	<button id="calcAppraisal">=</button>
-	<input type="text" id="Appraisal" placeholder="Appraisal"/>
-	
-	<br/>
-	
-	<button id="calcLTV">=</button>
-	<input type="text" id="LTV" placeholder="LTV"/>
-	
-	<button id="calcCLTV">=</button>
-	<input type="text" id="CLTV" placeholder="CLTV"/>
+	<div class="container">
+		<h2>LTV Calculator</h2>
+		<div class="form-inline" id="LTVForm">
+			<div class="form-group">
+				<label for="FirstLoan">First Loan Amount</label>
+				<br/>
+				<input type="text" class=".form-control" id="FirstLoan" placeholder="Enter 1st Loan"/>
+			</div>
+			<div class="form-group">
+				<label for="SecondLoan">Second Loan Amount</label>
+				<br/>
+				<input type="text" class=".form-control" id="SecondLoan" placeholder="Enter 2nd Loan"/>
+			</div>
+			<br/>
+			<div class="form-group">
+				<label for="Appraisal">Appraisal Amount</label>
+				<br/>
+				<input type="text" class=".form-control" id="Appraisal" placeholder="Enter Appraisal"/>
+			</div>
+			<br/>
+			<div class="form-group">
+				<label for="LTV">LTV (%)</label>
+				<br/>
+				<input type="text" class=".form-control" id="LTV" placeholder="Enter LTV"/>
+			</div>
+			<div class="form-group">
+				<label for="CLTV">CLTV (%)</label>
+				<br/>
+				<input type="text" class=".form-control" id="CLTV" placeholder="Enter CLTV"/>
+			</div>
+			<br>
+			<button id="btn-calculate" class="btn btn-default">Calculate</button>
+			<button id="btn-clear" class="btn">Clear</button>
+		</div>
+	</div>
 </body>
 <footer>
-	<a href="https://github.com/benj2240/number-one-gs" style="position:absolute;bottom:5px">Source repository</a>
+	<a href="https://github.com/benj2240/number-one-gs">source: version 2.0</a>
 </footer>
 </html>
