@@ -46,8 +46,16 @@ function calculateAmounts(){
         FirstLoan = Appraisal * CLTV - SecondLoan;
     }
 
-    LTV *= 100;
-    CLTV *= 100;
+    // Convert to percent, round to 2 decimal places
+    // Note that the result may be off by 0.01 due to precision errors
+    //      ...which I am totally OK with for now.
+    LTV = Math.round(LTV*10000)/100;
+    CLTV = Math.round(CLTV*10000)/100;
+
+    // Just regular rounding here
+    FirstLoan = Math.round(FirstLoan);
+    SecondLoan = Math.round(SecondLoan);
+    Appraisal = Math.round(Appraisal);
 
     setValue("FirstLoan",FirstLoan);
     setValue("SecondLoan",SecondLoan);
